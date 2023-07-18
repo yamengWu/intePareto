@@ -259,7 +259,7 @@ doMatch <- function(rnaMeta,
   exprsRNA <- merge(N,exprs, by.x = "ensembl_transcript_id_version", by.y=0)
   # remove it if it causes problem
   exprsRNA <- exprsRNA[exprsRNA$chromosome_name %in% c(1:100,"X","Y"),]
-  aln <- GenomicAlignments::readGAlignments(file = chipMeta$files[1])
+  aln <- GenomicAlignments::readGAlignments(file = gsub("\\.bai$", "", chipMeta$files[1]),index = gsub("\\.bai$", "",chipMeta$files[1]))
   #### get chip counts
   message("get chip counts")
   if(region=="promoter"){
