@@ -59,6 +59,12 @@ bam2counts <- function(bamFile,
                                fix = "start")
   # countOverlaps is strand aware, so remove strand
   GenomicRanges::strand(aln) <- "*"
+#Added by yameng
+  reference_list <- read.table('GRCh38GenomeAssembly.txt',header = TRUE)
+  aln@seqnames@values
+  your_data_with_ids <- reference_list$Chromosome[match(aln@seqnames@values, reference_list$accession)]
+  aln@seqnames@values=your_data_with_ids
+  
   counts <- GenomicRanges::countOverlaps(region, aln)
   names(counts) <- names(region)
   return(counts)
